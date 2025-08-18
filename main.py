@@ -3,6 +3,7 @@ import pandas as pd
 import sqlite3
 import datetime
 import matplotlib.pyplot as plt 
+import japanize_matplotlib
 
 
 #* function to return a database created in Create_db.py
@@ -55,17 +56,6 @@ with tab1:
     ax.axis("equal")
     st.pyplot(fig)
     
-    
-    
-
-    
-    
-    
-
-    
-
-    
-
     with tab2:
         st.subheader("➕新規登録フォーム")
         #* allow users to input values in text boxes, submit them and register them into finance.db 
