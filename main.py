@@ -46,9 +46,8 @@ with tab1:
     #* Variables for pie chart 
     value = df_sum["total_price"]
     label = df_sum.index
-
+    matplotlib.use('Agg')
     plt.pie(x=value, labels=label)
-    plt.ion()
     plt.show()
     
     
