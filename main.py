@@ -37,7 +37,7 @@ with tab1:
      #* SELECT values of category2 and total_price from finance table 
     ax.pie(df["total_price"], labels=df["category2"], autopct="%1.1f%%", startangle=90)
     ax.axis("equal")
-    st.pylot(fig)
+    st.pyplot(fig)
     
     #* Disconnect the database connection 
     conn.close()
