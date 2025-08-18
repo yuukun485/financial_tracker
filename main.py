@@ -3,7 +3,6 @@ import pandas as pd
 import sqlite3
 import datetime
 import matplotlib.pyplot as plt 
-import japanize_matplotlib
 
 #* function to return a database created in Create_db.py
 def get_connection():
