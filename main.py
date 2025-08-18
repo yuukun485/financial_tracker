@@ -65,9 +65,12 @@ with tab1:
                 else:
                     st.warning("必須項目が未入力です")
 with tab3:
-    st.subheader("➖削除フォーム申請")
+    st.subheader("➖削除フォーム")
     conn = get_connection()
+    cursor = conn.cursor()
     query = "SELECT * From finance"
     df = pd.read_sql_query(query, conn)
     st.dataframe(df, use_container_width=True, hide_index=True)
+    
+
 
