@@ -37,9 +37,12 @@ with tab1:
     #* Dispaly a list of financial asset extracted from finance table and stored into df
     st.dataframe(df, use_container_width=True, hide_index=True)
 
+    #* store total values of each category2 in df_sum
     df_sum = df[["category2", "total_price"]].groupby("category2").sum()
-    df_sum
+    df_sum = df_sum.sort_values(by="total_price", ascending=False)
+    
 
+    
     
     
 
