@@ -31,12 +31,16 @@ with tab1:
     #* SELECT all values from finance table and store the data into finance.db 
     query = "SELECT * FROM finance"
     df = pd.read_sql_query(query, conn)
-
-
+    
     #* Disconnect the database connection 
     conn.close()
     #* Dispaly a list of financial asset extracted from finance table and stored into df
     st.dataframe(df, use_container_width=True, hide_index=True)
+
+    df_sum = df[["category2", "total_price"]].groupby("category2").sum()
+    df_sum
+
+    
     
 
     
