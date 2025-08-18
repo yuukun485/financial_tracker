@@ -27,13 +27,19 @@ with tab1:
     st.subheader("📃金融資産一覧表")
     #* connect to finance.db
     conn = get_connection()
+    cursor = conn.cursor()
     #* SELECT all values from finance table and store the data into finance.db 
     query = "SELECT * FROM finance"
+    #* SELECT 
     df = pd.read_sql_query(query, conn)
     #* Disconnect the database connection 
     conn.close()
     #* Dispaly a list of financial asset extracted from finance table and stored into df
     st.dataframe(df, use_container_width=True, hide_index=True)
+
+    
+
+    
 
     with tab2:
         st.subheader("➕新規登録フォーム")
