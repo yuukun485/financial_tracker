@@ -30,8 +30,15 @@ with tab1:
     cursor = conn.cursor()
     #* SELECT all values from finance table and store the data into finance.db 
     query = "SELECT * FROM finance"
-    #* SELECT 
     df = pd.read_sql_query(query, conn)
+
+     #* create a pie chart 
+    fig, ax = plt.subplots()
+     #* SELECT values of category2 and total_price from finance table 
+    ax.pie(df["total_price"], labels=df["category2"], autopct="%1.1f%%", startangle=90)
+    ax.axis("equal")
+    st.pylot(fig)
+    
     #* Disconnect the database connection 
     conn.close()
     #* Dispaly a list of financial asset extracted from finance table and stored into df
