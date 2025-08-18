@@ -48,7 +48,7 @@ with tab1:
     label = df_sum.index
     
     fig, ax = plt.subplots()
-    ax.pie(value, labels=label, autopct="%1.1f%%,shadow=True,startangle=90)
+    ax.pie(value, labels=label, autopct="%1.1f%%",shadow=True,startangle=90)
     ax.axis("equal")
     st.pyplot(fig)
     
