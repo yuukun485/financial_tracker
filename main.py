@@ -39,7 +39,11 @@ with tab1:
 
     #* store total values of each category2 in df_sum
     df_sum = df[["category2", "total_price"]].groupby("category2").sum()
+    
+    #* sort values stored in df_sum in descending order 
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
+
+    
     
 
     
