@@ -49,6 +49,7 @@ with tab1:
     label = df_sum.index
 
     plt.pie(x=value, labels=label)
+    plt.ion()
     plt.show()
     
     
