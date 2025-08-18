@@ -47,6 +47,8 @@ with tab1:
     #* Variables for pie chart 
     value = df_sum["total_price"]
     label = df_sum.index
+
+    plt.rcParams["font.family"] ="Arial Unicode MS"
     
     fig, ax = plt.subplots()
     ax.pie(value, labels=label, autopct="%1.1f%%",shadow=True,startangle=90)
