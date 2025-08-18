@@ -3,7 +3,6 @@ import pandas as pd
 import sqlite3
 import datetime
 import matplotlib.pyplot as plt 
-from japanize_matplotlib.japanize_matplotlib import japanize, get_font_p
 
 #* function to return a database created in Create_db.py
 def get_connection():
