@@ -71,6 +71,15 @@ with tab3:
     query = "SELECT * From finance"
     df = pd.read_sql_query(query, conn)
     st.dataframe(df, use_container_width=True, hide_index=True)
-    
+
+    #* type an id number to delete from finance table 
+    id_number_to_delete = st.number_input("削除するid番号を入力", min_value = 1)
+
+    #* if a button is clicked, an id number typed in the textbox is deleted 
+    if st.button("データを削除"):
+        cursor.execute("DELETE FROM finance WEHERE id_number =?", (id_number_to_delete,))
+    conn.commit()
+    st.success(f"id番号{id_numbet_to_delete}"を削除しました。")
+    conn.close()
 
 
