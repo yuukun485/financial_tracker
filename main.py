@@ -79,7 +79,7 @@ with tab3:
     if st.button("データを削除"):
         cursor.execute("DELETE FROM finance WEHERE id_number =?", (id_number_to_delete,))
     conn.commit()
-    st.success(f"id番号{id_numbet_to_delete}"を削除しました。")
+    st.success(f"id番号{id_numbet_to_delete}を削除しました。")
     conn.close()
 
 
