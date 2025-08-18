@@ -77,7 +77,7 @@ with tab3:
 
     #* if a button is clicked, an id number typed in the textbox is deleted 
     if st.button("データを削除"):
-        cursor.execute("DELETE FROM finance WHERE id_number =?", (id_number_to_delete,))
+        cursor.execute("DELETE FROM finance WHERE id =?", (id_number_to_delete,))
         conn.commit()
         st.success(f"id番号{id_number_to_delete}を削除しました。")
         conn.close()
