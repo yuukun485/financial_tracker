@@ -51,6 +51,7 @@ with tab1:
     df_sum_all = df["total_price"].sum()
     formatted_total = f"{df_sum_all:,}円"
     st.markdown(f"<div style='font-size: 36px;'>{formatted_total}</div>",unsafe_allow_html=True)
+    st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
     #* how to correspond with japanese 
     plt.rcParams['font.family'] = 'IPAexGothic'
@@ -72,7 +73,7 @@ with tab1:
     ax.axis("equal")
     plt.title("用途別円グラフ",{"fontsize": 20})
     st.pyplot(fig)
-
+    
     st.subheader("用途別合計金額一覧表")
     df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
