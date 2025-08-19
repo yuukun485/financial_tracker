@@ -51,7 +51,8 @@ with tab1:
     st.dataframe(df_styled_total)
 
     st.write("全項目合計額")
-    df_sum_all = df[["total_price"]]
+    df_sum_all = df["total_price"].sum()
+    
     st.write(df_sum_all)
     #* how to correspond with japanese 
     plt.rcParams['font.family'] = 'IPAexGothic'
