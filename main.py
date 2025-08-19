@@ -1,3 +1,30 @@
+import streamlit as st 
+import pandas as pd 
+import sqlite3
+import datetime
+import matplotlib.pyplot as plt 
+import matplotlib.font_manager as fm
+
+
+#* function to return a database created in Create_db.py
+def get_connection():
+    return sqlite3.connect("finance.db")
+
+# Page Settings 
+st.set_page_config(
+    page_title="Personal Finance Tracker",
+    page_icon=":moneybag:",
+    layout="centered",
+    initial_sidebar_state="expanded"
+)
+
+#! main parts of this application
+st.title("金融資産管理アプリ")
+
+# divide functions based on tabs 
+tab1, tab2, tab3 = st.tabs(["金融資産一覧表","金融資産登録フォーム","金融資産更新・削除"])
+
+#Display a list of financial asset 
 with tab1:
     st.header("📃金融資産一覧表")
     #* connect to finance.db
@@ -20,7 +47,6 @@ with tab1:
     
     #* sort values stored in df_sum in descending order 
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
-    df_sum2 = df_sum2.sort_values(by="total_price", ascending=False) # df_sum2もソートしておきます
 
     st.subheader("全項目合計額")
     df_sum_all = df["total_price"].sum()
@@ -36,78 +62,84 @@ with tab1:
         fm.fontManager.addfont(font_path)
     register_font()
 
-    # --- ▼▼▼ ここから修正 ▼▼▼ ---
+    #* Variables for pie chart 
+    value = df_sum["total_price"]
+    label = df_sum.index
 
-    def create_pie_chart(df_grouped, title):
-        """円グラフを作成して表示する関数"""
-        
-        # データが空の場合は何もしない
-        if df_grouped.empty:
-            st.warning(f"{title}のデータがありません。")
-            return
+    value2 = df_sum2["total_price"]
+    label2 = df_sum2.index
 
-        # 閾値を設定（例：合計の4%未満を「その他」にまとめる）
-        threshold_percentage = 4.0
-        total_value = df_grouped["total_price"].sum()
-        
-        # 割合が閾値未満の項目を「その他」として集約
-        small_items = df_grouped[df_grouped["total_price"] / total_value * 100 < threshold_percentage]
-        main_items = df_grouped[df_grouped["total_price"] / total_value * 100 >= threshold_percentage]
-
-        plot_data = main_items.copy()
-        if not small_items.empty:
-            other_sum = small_items["total_price"].sum()
-            other_row = pd.DataFrame({"total_price": [other_sum]}, index=["その他"])
-            plot_data = pd.concat([plot_data, other_row])
-
-        # 円グラフ描画用の値とラベルを準備
-        value = plot_data["total_price"]
-        label = plot_data.index
-
-        # 「その他」があればそれを少し引き出す（explode）
-        explode = [0.1 if i == "その他" else 0 for i in label]
-        
-        # 円グラフの描画
-        fig, ax = plt.subplots(figsize=(8, 6)) # 少し大きめのサイズに
-
-        def func(pct, allvals):
-            absolute = int(round(pct/100.*sum(allvals)))
-            return f"{pct:.1f}%\n({absolute:,d}円)"
-
-        # autopctで値が小さいラベルは表示しないようにする
-        wedges, texts, autotexts = ax.pie(
-            value, 
-            autopct=lambda pct: func(pct, value) if pct > threshold_percentage else '', # 閾値以下のラベルは非表示
-            shadow=False, 
-            startangle=90,
-            explode=explode, # explodeを適用
-            pctdistance=0.85 # ラベルの位置を内側に調整
-        )
-        
-        # グラフ内のテキストのスタイルを設定
-        plt.setp(autotexts, size=10, weight="bold", color="white")
-
-        ax.axis("equal")
-        ax.legend(label, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=10) # 凡例をグラフの右外側に配置
-        plt.title(title, {"fontsize": 20})
-        st.pyplot(fig)
-
-    # 1つ目の円グラフ（用途別）を描画
-    create_pie_chart(df_sum, "用途別円グラフ")
-
+    fig, ax = plt.subplots()
+    def func(pct, allvals):
+        absolute = int(round(pct/100.*sum(allvals)))
+        return f"{pct:.1f}%\n({absolute:,d}円)"
+    ax.pie(value,autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
+    ax.axis("equal")
+    ax.legend(label, loc="center right", bbox_to_anchor=(1,0,0.5,1))
+    plt.title("用途別円グラフ",{"fontsize": 20})
+    st.pyplot(fig)
+    
     st.subheader("用途別合計金額一覧表")
     df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
 
-    # 2つ目の円グラフ（資金別）を描画
-    create_pie_chart(df_sum2, "資金別円グラフ")
+    fig2, ax2 = plt.subplots()
+    def func(pct, allvals):
+        absolute = int(round(pct/100.*sum(allvals)))
+        return f"{pct:.1f}%\n({absolute:,d}円)"
+    ax2.pie(value2, autopct=lambda pct: func(pct, value2), shadow=False, startangle=90, textprops={'fontsize': 6})
+    ax2.axis("equal")
+    ax2.legend(label2, loc="center right", bbox_to_anchor=(1,0,0.5,1))
+    plt.title("資金別円グラフ",{"fontsize": 20})
+    st.pyplot(fig2)
 
-    # --- ▲▲▲ ここまで修正 ▲▲▲ ---
-
-    with tab2:
-      # (tab2以下のコードは変更なし)
-      ...
     
-    with tab3:
-      # (tab3以下のコードは変更なし)
-      ...
+    with tab2:
+        st.subheader("➕新規登録フォーム")
+        #* allow users to input values in text boxes, submit them and register them into finance.db 
+        with st.form("registration form", clear_on_submit=True):
+            default_date = datetime.date(2025,8,1)
+            date = st.date_input(label="日付", value=default_date)
+            title = st.text_input(label="タイトル", max_chars=200)
+            account_name = st.text_input(label="アカウント名", max_chars=200)
+            category1 = st.text_input(label="カテゴリ1", max_chars=200)
+            category2 = st.text_input(label="カテゴリ2", max_chars=200)
+            purchased_number = st.number_input(label="数量", value=0, step=1)
+            unit_price = st.number_input(label="単価", value=0, step=1)
+            total_price = st.number_input(label="合計", value=0, step=1)
+
+            submitted = st.form_submit_button("登録する")
+
+            if submitted:
+                if date and title and account_name and category1 and category2 and total_price:
+                    conn = get_connection()
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        "INSERT INTO finance(date, title, account_name, category1, category2, purchased_number, unit_price, total_price) VALUES(?,?,?,?,?,?,?,?)",
+                        (date, title, account_name, category1, category2, purchased_number, unit_price, total_price)
+                    )
+                    conn.commit()
+                    conn.close()
+                    st.success("登録完了")
+                else:
+                    st.warning("必須項目が未入力です")
+with tab3:
+    st.subheader("➖削除フォーム")
+    conn = get_connection()
+    cursor = conn.cursor()
+    query = "SELECT * From finance"
+    df = pd.read_sql_query(query, conn)
+    st.dataframe(df, use_container_width=True, hide_index=True)
+
+    #* type an id number to delete from finance table 
+    id_number_to_delete = st.number_input("削除するid番号を入力", min_value = 0)
+
+    #* if a button is clicked, an id number typed in the textbox is deleted 
+    if st.button("データを削除"):
+        cursor.execute("DELETE FROM finance WHERE id =?", (id_number_to_delete,))
+        conn.commit()
+        st.success(f"id番号{id_number_to_delete}を削除しました。")
+        conn.close()
+
+
+
