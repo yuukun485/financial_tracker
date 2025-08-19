@@ -45,6 +45,7 @@ with tab1:
     
     #* sort values stored in df_sum in descending order 
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
+    st.dataframe(df_sum)
 
     #* how to correspond with japanese 
     plt.rcParams['font.family'] = 'IPAexGothic'
