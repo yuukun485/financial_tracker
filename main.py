@@ -111,7 +111,7 @@ with tab1:
             category1 = st.text_input(label="カテゴリ1", max_chars=200)
             category2 = st.text_input(label="カテゴリ2", max_chars=200)
             purchased_number = st.number_input(label="数量", value=0, step=1)
-            unit_price = st.number_input(label="単価", value=0, step=0.00001)
+            unit_price = st.number_input(label="単価", value=0)
             total_price = st.number_input(label="合計", value=0, step=1)
 
             submitted = st.form_submit_button("登録する")
