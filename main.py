@@ -24,7 +24,6 @@ st.title("金融資産管理アプリ")
 # divide functions based on tabs 
 tab1, tab2, tab3 = st.tabs(["金融資産一覧表","金融資産登録フォーム","金融資産更新・削除"])
 
-#Display a list of financial asset 
 with tab1:
     st.header("📃金融資産一覧表")
     #* connect to finance.db
@@ -47,6 +46,7 @@ with tab1:
     
     #* sort values stored in df_sum in descending order 
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
+    df_sum2 = df_sum2.sort_values(by="total_price", ascending=False) # df_sum2もソートしておきます
 
     st.subheader("全項目合計額")
     df_sum_all = df["total_price"].sum()
@@ -62,36 +62,74 @@ with tab1:
         fm.fontManager.addfont(font_path)
     register_font()
 
-    #* Variables for pie chart 
-    value = df_sum["total_price"]
-    label = df_sum.index
+    # --- ▼▼▼ ここから修正 ▼▼▼ ---
 
-    value2 = df_sum2["total_price"]
-    label2 = df_sum2.index
+    def create_pie_chart(df_grouped, title):
+        """円グラフを作成して表示する関数"""
+        
+        # データが空の場合は何もしない
+        if df_grouped.empty:
+            st.warning(f"{title}のデータがありません。")
+            return
 
-    fig, ax = plt.subplots()
-    def func(pct, allvals):
-        absolute = int(round(pct/100.*sum(allvals)))
-        return f"{pct:.1f}%\n({absolute:,d}円)"
-    ax.pie(value,autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
-    ax.axis("equal")
-    ax.legend(label, loc="center right", bbox_to_anchor=(1,0,0.5,1))
-    plt.title("用途別円グラフ",{"fontsize": 20})
-    st.pyplot(fig)
-    
+        # 閾値を設定（例：合計の4%未満を「その他」にまとめる）
+        threshold_percentage = 4.0
+        total_value = df_grouped["total_price"].sum()
+        
+        # 割合が閾値未満の項目を「その他」として集約
+        small_items = df_grouped[df_grouped["total_price"] / total_value * 100 < threshold_percentage]
+        main_items = df_grouped[df_grouped["total_price"] / total_value * 100 >= threshold_percentage]
+
+        plot_data = main_items.copy()
+        if not small_items.empty:
+            other_sum = small_items["total_price"].sum()
+            other_row = pd.DataFrame({"total_price": [other_sum]}, index=["その他"])
+            plot_data = pd.concat([plot_data, other_row])
+
+        # 円グラフ描画用の値とラベルを準備
+        value = plot_data["total_price"]
+        label = plot_data.index
+
+        # 「その他」があればそれを少し引き出す（explode）
+        explode = [0.1 if i == "その他" else 0 for i in label]
+        
+        # 円グラフの描画
+        fig, ax = plt.subplots(figsize=(8, 6)) # 少し大きめのサイズに
+
+        def func(pct, allvals):
+            absolute = int(round(pct/100.*sum(allvals)))
+            return f"{pct:.1f}%\n({absolute:,d}円)"
+
+        # autopctで値が小さいラベルは表示しないようにする
+        wedges, texts, autotexts = ax.pie(
+            value, 
+            autopct=lambda pct: func(pct, value) if pct > threshold_percentage else '', # 閾値以下のラベルは非表示
+            shadow=False, 
+            startangle=90,
+            explode=explode, # explodeを適用
+            pctdistance=0.85 # ラベルの位置を内側に調整
+        )
+        
+        # グラフ内のテキストのスタイルを設定
+        plt.setp(autotexts, size=10, weight="bold", color="white")
+
+        ax.axis("equal")
+        ax.legend(label, loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=10) # 凡例をグラフの右外側に配置
+        plt.title(title, {"fontsize": 20})
+        st.pyplot(fig)
+
+    # 1つ目の円グラフ（用途別）を描画
+    create_pie_chart(df_sum, "用途別円グラフ")
+
     st.subheader("用途別合計金額一覧表")
     df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
 
-    fig2, ax2 = plt.subplots()
-    def func(pct, allvals):
-        absolute = int(round(pct/100.*sum(allvals)))
-        return f"{pct:.1f}%\n({absolute:,d}円)"
-    ax2.pie(value2, autopct=lambda pct: func(pct, value2), shadow=False, startangle=90, textprops={'fontsize': 6})
-    ax2.axis("equal")
-    ax2.legend(label2, loc="center right", bbox_to_anchor=(1,0,0.5,1))
-    plt.title("資金別円グラフ",{"fontsize": 20})
-    st.pyplot(fig2)
+    # 2つ目の円グラフ（資金別）を描画
+    create_pie_chart(df_sum2, "資金別円グラフ")
+
+    # --- ▲▲▲ ここまで修正 ▲▲▲ ---
+
 
     
     with tab2:
