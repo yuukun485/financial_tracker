@@ -45,7 +45,7 @@ with tab1:
     
     #* sort values stored in df_sum in descending order 
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
-    df_styled_total = df_sum.style.format({"total_price"}: "{}:,.0f"})
+    df_styled_total = df_sum.style.format({"total_price": "{:,.0f"}"})
     st.table(df_styled_total)
 
     #* how to correspond with japanese 
