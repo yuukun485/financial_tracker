@@ -26,7 +26,7 @@ tab1, tab2, tab3 = st.tabs(["金融資産一覧表","金融資産登録フォー
 
 #Display a list of financial asset 
 with tab1:
-    st.subheader("📃金融資産一覧表")
+    st.header("📃金融資産一覧表")
     #* connect to finance.db
     conn = get_connection()
     cursor = conn.cursor()
