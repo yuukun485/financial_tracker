@@ -40,7 +40,7 @@ with tab1:
     rakuten_rows = df.index[df["account_name"] == "楽天証券_Y"]
     other_rows = df.index[df["account_name"] != "楽天証券_Y"]
     
-    df_styled = df.style.format({"total_price": "{:,.0f}").format({"unite_price": "{:.6f}"}, subset=pd.IndexSlice[rakuten_rows,:]).format({"unit_price": "{:,.0f}",subset=pd.IndexSlice[other_rows, :])
+    df_styled = df.style.format({"total_price": "{:,.0f}")\.format({"unite_price": "{:.6f}"}, subset=pd.IndexSlice[rakuten_rows,:])\.format({"unit_price": "{:,.0f}",subset=pd.IndexSlice[other_rows, :])
     st.dataframe(df_styled, use_container_width=True, hide_index=True)
 
     #* store total values of each category2 in df_sum
