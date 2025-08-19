@@ -42,6 +42,7 @@ with tab1:
 
     #* store total values of each category2 in df_sum
     df_sum = df[["category2", "total_price"]].groupby("category2").sum()
+    df_sum2 = df[["category1", "total_price"]].groupby("category1").sum()
     
     
     #* sort values stored in df_sum in descending order 
@@ -65,6 +66,9 @@ with tab1:
     value = df_sum["total_price"]
     label = df_sum.index
 
+    value2 = df_sum2["total_price"]
+    label2 = df_sum2.index
+
     fig, ax = plt.subplots()
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
@@ -77,6 +81,16 @@ with tab1:
     st.subheader("用途別合計金額一覧表")
     df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
+
+    fig2, ax2 = plt.subplots()
+    def func(pct, allvals):
+        absolute = int(round(pct/100.*sum(allvals)))
+        return f"{pct:.1f}%\n({absolute:,d}円)"
+    ax2.pie(value2, labels=label2, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
+    ax2.axis("equal")
+    plt.title("資金別円グラフ",{"fontsize": 20})
+    st.pyplot(fig2)
+
     
     with tab2:
         st.subheader("➕新規登録フォーム")
