@@ -70,7 +70,7 @@ with tab1:
         return f"{pct:.1f}%\n({absolute:,d}円)"
     ax.pie(value, labels=label, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax.axis("equal")
-    plt.title("用途別合計金額円グラフ")
+    plt.title("Category2円グラフ")
     st.pyplot(fig)
 
     st.subheader("用途別合計金額一覧表")
