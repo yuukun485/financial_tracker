@@ -83,7 +83,7 @@ with tab1:
     df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
 
-    fig2, ax2 = plt.subplots(figsize=(10, 10))
+    fig2, ax2 = plt.subplots(figsize=(15, 10))
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
         return f"{pct:.1f}%\n({absolute:,d}円)"
