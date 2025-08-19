@@ -51,8 +51,7 @@ with tab1:
     # 一般的にはプロジェクトルートからの相対パスで動作します。
         font_path = './fonts/ipaexg.ttf'
         fm.fontManager.addfont(font_path)
-
-register_font()
+    register_font()
 
     #* Variables for pie chart 
     value = df_sum["total_price"]
