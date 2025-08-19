@@ -86,7 +86,7 @@ with tab1:
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
         return f"{pct:.1f}%\n({absolute:,d}円)"
-    ax2.pie(value2, labels=label2, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
+    ax2.pie(value2, labels=label2, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 3})
     ax2.axis("equal")
     plt.title("資金別円グラフ",{"fontsize": 20})
     st.pyplot(fig2)
