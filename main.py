@@ -3,6 +3,7 @@ import pandas as pd
 import sqlite3
 import datetime
 import matplotlib.pyplot as plt 
+import matplotlib.font_manager as fm
 
 
 #* function to return a database created in Create_db.py
