@@ -90,8 +90,13 @@ with tab1:
     ax2.pie(value2, autopct=lambda pct: func(pct, value2), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax2.axis("equal")
     ax2.legend(label2, loc="center right", bbox_to_anchor=(1,0,0.5,1))
-    plt.title("資金別円グラフ",{"fontsize": 20})
+    plt.title("資産別円グラフ",{"fontsize": 20})
     st.pyplot(fig2)
+
+    
+    st.subheader("資産別合計金額一覧表")
+    df_styled_total = df_sum2.style.format({"total_price": "{:,.0f}"})
+    st.dataframe(df_styled_total)
 
     
     with tab2:
