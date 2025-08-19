@@ -53,7 +53,7 @@ with tab1:
     st.subheader("全項目合計額")
     df_sum_all = df["total_price"].sum()
     formatted_total = f"{df_sum_all:,}円"
-    st.markdown(f"<div style='font-size: 20px;'>{formatted_total}</div>",unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size: 60px;'>{formatted_total}</div>",unsafe_allow_html=True)
     
     #* how to correspond with japanese 
     plt.rcParams['font.family'] = 'IPAexGothic'
