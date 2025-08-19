@@ -52,7 +52,7 @@ with tab1:
 
     st.write("全項目合計額")
     df_sum_all = df["total_price"].sum()
-    df_styled_all = df_sum_all.style.format({"total_price": "{:,of}"})
+    df_styled_all = df_sum_all.style.format({"total_price": "{:,0f}"})
     st.write(df_sum_all)
     
     #* how to correspond with japanese 
