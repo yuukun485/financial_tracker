@@ -61,7 +61,7 @@ with tab1:
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
         return f"{pct:.1f}%\n({absolute}円)"
-    ax.pie(value, labels=label, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 8})
+    ax.pie(value, labels=label, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax.axis("equal")
     st.pyplot(fig)
     
