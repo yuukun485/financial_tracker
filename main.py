@@ -99,6 +99,7 @@ with tab1:
 
     
     st.subheader("資産別合計金額一覧表")
+    
     df_styled_total = df_sum2.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
 
@@ -138,7 +139,9 @@ with tab3:
     cursor = conn.cursor()
     query = "SELECT * From finance"
     df = pd.read_sql_query(query, conn)
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    df_styled = df.style.format({"total_price": "{:,.0f}"}).format({"unite_price": "{:.6f}"}, subset=pd.IndexSlice[rakuten_rows,:]).format({"unit_price": "{:,.0f}"},subset=pd.IndexSlice[other_rows,:])
+    st.dataframe(df_styled, use_container_width=True, hide_index=True)
+
 
     #* type an id number to delete from finance table 
     id_number_to_delete = st.number_input("削除するid番号を入力", min_value = 0)
