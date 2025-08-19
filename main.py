@@ -50,7 +50,7 @@ with tab1:
     def register_font():
     # 注意: Streamlit Cloudではパスの扱いに注意が必要な場合があります。
     # 一般的にはプロジェクトルートからの相対パスで動作します。
-        font_path = './fonts/ipaexg.ttf'
+        font_path = 'ipaexg.ttf'
         fm.fontManager.addfont(font_path)
     register_font()
 
