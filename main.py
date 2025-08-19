@@ -37,7 +37,7 @@ with tab1:
     #* Disconnect the database connection 
     conn.close()
     #* Dispaly a list of financial asset extracted from finance table and stored into df
-    df_styled = df.style.format({"total_price": "{:,.0f}"})
+    df_styled = df.style.format({"total_price": "{:,.0f}", "unit_price": "{:.0f}"})
     st.dataframe(df_styled, use_container_width=True, hide_index=True)
 
     #* store total values of each category2 in df_sum
