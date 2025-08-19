@@ -45,11 +45,10 @@ with tab1:
     #* sort values stored in df_sum in descending order 
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
 
+    #* how to correspond with japanese 
     plt.rcParams['font.family'] = 'IPAexGothic'
     @st.cache_resource
     def register_font():
-    # 注意: Streamlit Cloudではパスの扱いに注意が必要な場合があります。
-    # 一般的にはプロジェクトルートからの相対パスで動作します。
         font_path = 'ipaexg.ttf'
         fm.fontManager.addfont(font_path)
     register_font()
@@ -59,7 +58,7 @@ with tab1:
     label = df_sum.index
     
     fig, ax = plt.subplots()
-    ax.pie(value, labels=label, autopct="%1.1f%%",shadow=True,startangle=90)
+    ax.pie(value, labels=label, autopct="%1.1f%%",shadow=False,startangle=90)
     ax.axis("equal")
     st.pyplot(fig)
     
