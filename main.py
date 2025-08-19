@@ -73,8 +73,9 @@ with tab1:
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
         return f"{pct:.1f}%\n({absolute:,d}円)"
-    ax.pie(value, labels=label, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
+    ax.pie(value,autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax.axis("equal")
+    ax.ledgend(label, loc="center right", bbox_to_anchor=(1,0,0.5,1))
     plt.title("用途別円グラフ",{"fontsize": 20})
     st.pyplot(fig)
     
