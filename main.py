@@ -63,7 +63,8 @@ with tab1:
     #* Variables for pie chart 
     value = df_sum["total_price"]
     label = df_sum.index
-    
+
+    plt.title("用途別合計金額円グラフ")
     fig, ax = plt.subplots()
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
