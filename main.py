@@ -37,8 +37,8 @@ with tab1:
     #* Disconnect the database connection 
     conn.close()
     #* Dispaly a list of financial asset extracted from finance table and stored into df
-    rakuten_rows = df.index[df["account_name"] == "楽天証券_Y"]
-    other_rows = df.index[df["account_name"] != "楽天証券_Y"]
+    rakuten_rows = df.index[df["category1"] == "投資信託"]
+    other_rows = df.index[df["category1"] != "投資信託"]
     
     df_styled = df.style.format({"total_price": "{:,.0f}"}).format({"unite_price": "{:.6f}"}, subset=pd.IndexSlice[rakuten_rows,:]).format({"unit_price": "{:,.0f}"},subset=pd.IndexSlice[other_rows,:])
     st.dataframe(df_styled, use_container_width=True, hide_index=True)
