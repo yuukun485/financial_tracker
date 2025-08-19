@@ -52,7 +52,7 @@ with tab1:
 
     st.write("全項目合計額")
     df_sum_all = df["total_price"].sum()
-    fomrmatted_total = f"{df_sum_all:,}円"
+    formatted_total = f"{df_sum_all:,}円"
     st.write(formatted_total)
     
     #* how to correspond with japanese 
