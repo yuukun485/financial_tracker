@@ -64,13 +64,13 @@ with tab1:
     value = df_sum["total_price"]
     label = df_sum.index
 
-    plt.title("用途別合計金額円グラフ")
     fig, ax = plt.subplots()
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
         return f"{pct:.1f}%\n({absolute:,d}円)"
     ax.pie(value, labels=label, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax.axis("equal")
+    plt.title("用途別合計金額円グラフ")
     st.pyplot(fig)
 
     st.subheader("用途別合計金額一覧表")
