@@ -51,10 +51,6 @@ with tab1:
     formatted_total = f"{df_sum_all:,}円"
     st.markdown(f"<div style='font-size: 36px;'>{formatted_total}</div>",unsafe_allow_html=True)
     
-    st.subheader("用途別合計金額一覧表")
-    df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
-    st.dataframe(df_styled_total)
-    
     #* how to correspond with japanese 
     plt.rcParams['font.family'] = 'IPAexGothic'
     @st.cache_resource
@@ -74,6 +70,10 @@ with tab1:
     ax.pie(value, labels=label, autopct=lambda pct: func(pct, value), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax.axis("equal")
     st.pyplot(fig)
+
+    st.subheader("用途別合計金額一覧表")
+    df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
+    st.dataframe(df_styled_total)
     
     with tab2:
         st.subheader("➕新規登録フォーム")
