@@ -47,6 +47,7 @@ with tab1:
     
     #* sort values stored in df_sum in descending order 
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
+    df_sum2 = df_sum2.sort_values(by="total_price", ascending=False)
 
     st.subheader("全項目合計額")
     df_sum_all = df["total_price"].sum()
