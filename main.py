@@ -151,7 +151,7 @@ with tab3:
         cursor.execute("DELETE FROM finance WHERE id =?", (id_number_to_delete,))
         conn.commit()
         st.success(f"id番号{id_number_to_delete}を削除しました。")
-        st.experimental_rerun() 
+        st.rerun() 
         conn.close()
 
 
