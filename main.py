@@ -58,7 +58,10 @@ with tab1:
     label = df_sum.index
     
     fig, ax = plt.subplots()
-    ax.pie(value, labels=label, autopct="%1.1f%%",shadow=False,startangle=90)
+    def func(pct, allvals):
+    absolute = int(round(pct/100.*sum(allvals)))
+    return f"{pct:.1f}%\n({absolute}円)"
+    ax.pie(value, labels=label, autopct=lambda pct: func(pct, value), shadow=False, startangle=90)
     ax.axis("equal")
     st.pyplot(fig)
     
