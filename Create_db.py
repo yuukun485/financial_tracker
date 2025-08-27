@@ -1,13 +1,17 @@
+#* 【ライブラリのインポート】 | sqlite3はPython標準ライブラリのため、追加インストールは必要ない
 import sqlite3
 
-#* Connect to a finance.db | If the database doesnt exsit, a new database is automatically created 
+#*【DBへの接続】
+#*"finance.db"というファイル名のDBに接続。 | "finance.db"というファイルが存在しなければ新規で作成。
+#* "conn"という変数に"finance.db"への接続情報を格納。
 conn = sqlite3.connect("finance.db")
-
-#* The mechanism to process search results of a database line by line 
+#*カーソルの作成 | カーソルとはDBに対しSQLクエリ(命令文)を実行したり、結果を取得するためのもの。
 c = conn.cursor()
 
-#* execute is a method to execute sql-query | It is a common practice to write codes of SQL in capital letters
-#* finance table is created within finance.db 
+#*【DB内に新規テーブルの作成】
+#* "c.execute"文では"finance"というテーブル名がDB内にまだ存在しなければ作成する。
+#* "PRIMARY KEY"は各行を一位に特定するための識別子で、"AUTOINCREMENT"で作成の度自動で連番が振られる。
+#* INTEGER = 整数型(-922京~+922京まで格納可能), REAL = 少数型, TEXT = 文字列, NOT NULL = 空白禁止
 c.execute("""
 CREATE TABLE IF NOT EXISTS finance(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
