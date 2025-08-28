@@ -26,12 +26,10 @@ total_price INTEGER NOT NULL
 )
 """)
 
-#* Add sample datas into finance table
+#*"finance_data"という空のリストを作成し、この中に(タプル)で囲まれた各行のデータを格納する。
 finance_data =[
 ]
 
-#* insert finance_data into finance table 
-#* ? is a placeholder 
 c.executemany("INSERT INTO finance (date, title, account_name, category1, category2, purchased_number, unit_price, total_price) VALUES(?,?,?,?,?,?,?,?)", finance_data)
 
 #* terminate a transaction and confirm changes 
