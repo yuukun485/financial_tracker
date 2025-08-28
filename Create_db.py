@@ -27,15 +27,19 @@ total_price INTEGER NOT NULL
 """)
 
 #*"finance_data"という空のリストを作成し、この中に(タプル)で囲まれた各行のデータを格納する。
+#* 実際には("date:2024-11-18","title:アステラス製薬","account_name:楽天証券_Y","category1:株式","category2:投資資金","purchased_number:5","unit_price:1,650","total_price:8,250")というvalueが記載されている
 finance_data =[
 ]
 
+#*"c.executemany"文は"finance_data"から1タプルずつ抜き出し、"?"に各値のデータを渡す。
+#*"finance_data"の部分は[リスト内に(各タプルが存在する形式である必要がある),(),(),()...]
+#* "values(?,?,?...)"の数と、"finance_data"リスト内の各タプル内の値の数が同一である必要がある。
+#*"?"というプレースホルダーを使うのは値をただの文字列や数値として扱い、SQLインジェクションを防ぐため。
 c.executemany("INSERT INTO finance (date, title, account_name, category1, category2, purchased_number, unit_price, total_price) VALUES(?,?,?,?,?,?,?,?)", finance_data)
 
-#* terminate a transaction and confirm changes 
+#*テーブルの作成・データの挿入といった、DBへの変更を確定、保存する。
 conn.commit()
-
-#* disconnect the database connection
+#*DBとの接続を閉じる。メモリ側のリソースを解放するために必須。
 conn.close()
 print("データベースを作成しました。")
 
