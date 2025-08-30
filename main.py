@@ -1,5 +1,6 @@
 #* 【ライブラリのインポート】
-#* streamlit: UI構築, pandas: DBの操作・分析, 
+#* streamlit: UI構築, pandas: DBの操作・分析, matplotlib.pyplot: グラフの描画, matplotlib.font_manager: グラフの日本語フォント対応
+#* datetime: 日付・時刻を扱う, sqlite3: SQliteDBへの接続・SQLクエリの実行
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,16 +9,16 @@ import datetime
 import sqlite3
 
 
-#* function to return a database created in Create_db.py
 def get_connection():
     return sqlite3.connect("finance.db")
 
-# Page Settings
+#*　【ブラウザタブの表示設定】
+#* initial_sidebar_state ="expanded"
 st.set_page_config(
     page_title="Personal Finance Tracker",
     page_icon=":moneybag:",
     layout="centered",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="hidden"
 )
 
 # st.session_stateの初期化 (変更点1)
