@@ -8,7 +8,8 @@ import matplotlib.font_manager as fm
 import datetime
 import sqlite3
 
-
+#* 【DBとの接続】
+#* "finance.db"との接続を"get_connection"という関数で定義。
 def get_connection():
     return sqlite3.connect("finance.db")
 
