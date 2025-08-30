@@ -1,5 +1,5 @@
 #* 【ライブラリのインポート】
-#* streamlit: UI構築, pandas: DBの操作・分析, matplotlib.pyplot: グラフの描画, matplotlib.font_manager: グラフの日本語フォント対応
+#* streamlit: UI構築, pandas: DBの操作・分析, matplotlib.pyplot: グラフの描画, matplotlib.font_manager: グラフ文字の日本語フォント対応
 #* datetime: 日付・時刻を扱う, sqlite3: SQliteDBへの接続・SQLクエリの実行
 import streamlit as st
 import pandas as pd
