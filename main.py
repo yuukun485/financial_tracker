@@ -13,12 +13,13 @@ def get_connection():
     return sqlite3.connect("finance.db")
 
 #*　【ブラウザタブの表示設定】
-#* initial_sidebar_state ="expanded"
+#* "page_icon"はブラウザタブに表示される"page_title"の左側に表示される
+#* initial_sidebar_state ="auto" = スマホサイズの時はサイドバーを表示しない | 今回のアプリではサイドバーはないので関係ない
 st.set_page_config(
     page_title="Personal Finance Tracker",
     page_icon=":moneybag:",
     layout="centered",
-    initial_sidebar_state="None"
+    initial_sidebar_state="auto"
 )
 
 # st.session_stateの初期化 (変更点1)
