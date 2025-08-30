@@ -18,7 +18,7 @@ st.set_page_config(
     page_title="Personal Finance Tracker",
     page_icon=":moneybag:",
     layout="centered",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapesd"
 )
 
 # st.session_stateの初期化 (変更点1)
