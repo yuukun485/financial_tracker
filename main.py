@@ -1,11 +1,11 @@
-#*【ライブラリのインポート
-】
+#* 【ライブラリのインポート】
+#* streamlit: UI構築, pandas: DBの操作・分析, 
 import streamlit as st
 import pandas as pd
-import sqlite3
-import datetime
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import datetime
+import sqlite3
 
 
 #* function to return a database created in Create_db.py
