@@ -15,7 +15,7 @@ def get_connection():
 
 #*　【ブラウザタブの表示設定】
 #* "page_icon"はブラウザタブに表示される"page_title"の左側に表示される
-#* initial_sidebar_state ="auto" = スマホサイズの時はサイドバーを表示しない | 今回のアプリではサイドバーはないので関係ない
+#* initial_sidebar_state ="auto"ではスマホサイズの時はサイドバーを表示しない | 今回のアプリではサイドバーはないので関係ない
 st.set_page_config(
     page_title="Personal Finance Tracker",
     page_icon=":moneybag:",
@@ -23,7 +23,11 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# st.session_stateの初期化 (変更点1)
+#* 【セッション状態の管理】
+#* セッションとは、アプリにユーザーがログインした瞬間から、ブラウザタブを閉じる or タイムアウトするまでの一連の期間を指す。
+#* アプリにログイン時に"st.session_state"の中に、"data_updated"というフラグがないかを確認している。"data_updated"のフラグ名は開発者が任意で決めてOK。
+#*  "st.session_state.data_updated = False"はDBがまだ更新されていない状態に設定している。
+#* このif文は表示されるDBから取得したデータを最新のものにするのに必要となる。
 if "data_updated" not in st.session_state:
     st.session_state.data_updated = False
 
@@ -147,6 +151,7 @@ with tab2:
                 conn.close()
                 st.success("登録完了")
                 get_finance_data.clear() # キャッシュをクリア (変更点4)
+                st.session_state.data_updated = True
                 st.rerun() # アプリを再実行 (変更点5)
             else:
                 st.warning("必須項目が未入力です")
@@ -172,4 +177,5 @@ with tab3:
         conn.close()
         st.success(f"id番号{id_number_to_delete}を削除しました。")
         get_finance_data.clear() # キャッシュをクリア (変更点4)
+        st.session_state.data_update = True
         st.rerun() # アプリを再実行 (変更点5)
