@@ -48,10 +48,11 @@ def get_finance_data():
     conn.close()
     return df
 
-#! main parts of this application
+#* 【メインタイトルとタブ】
+#* "st.title()"はアプリ全体のメインタイトルを表示する
+#* "st.tabs"はページ移動を伴わずにタブの切り替えが可能である。
+#* "tab1","tab2","tab3"には、"st.tabs()"ないの[リスト]ないの各値が格納される。
 st.title("金融資産管理アプリ")
-
-# divide functions based on tabs
 tab1, tab2, tab3 = st.tabs(["金融資産一覧表","金融資産登録フォーム","金融資産更新・削除"])
 
 #Display a list of financial asset
