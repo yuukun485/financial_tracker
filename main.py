@@ -49,22 +49,22 @@ def get_finance_data():
     return df
 
 #* 【メインタイトルとタブ】
-#* "st.title()"はアプリ全体のメインタイトルを表示する
+#* "st.title()"はアプリ全体のメインタイトルを表示する。
 #* "st.tabs"はページ移動を伴わずにタブの切り替えが可能である。
 #* "tab1","tab2","tab3"には、"st.tabs()"ないの[リスト]ないの各値が格納される。
 st.title("金融資産管理アプリ")
 tab1, tab2, tab3 = st.tabs(["金融資産一覧表","金融資産登録フォーム","金融資産更新・削除"])
 
-#Display a list of financial asset
+#* 【tab1: 金融資産一覧表・グラフの表示】
+#* "st.header"でセクションのタイトルを表示する。
+#* "get_finance_data()"関数を呼び出し、DBから取得したデータを"df"という変数に格納する。
+#* この後、10分間はDBへの接続は行われず、アプリ側のキャッシュに保存されたデータを使用する。
 with tab1:
     st.header("📃金融資産一覧表")
-    #* connect to finance.db
-    # データ取得関数を呼び出すように変更 (変更点3)
     df = get_finance_data()
-    
-    #* Disconnect the database connection
-    # conn.close() は関数内に移動済み
-    #* Dispaly a list of financial asset extracted from finance table and stored into df
+
+#* "df.index[df["category1"] == "投資信託"]"は"category1"列の値が"投資信託"である行を特定し、各行のインデックス番号を"rakuten_rows"に格納している。
+#* ""df.index[df["category1"] != "投資信託"]"は"category1"列の値が"投資信託"以外である行を特定し、各行のインデックス番号を"other_rows"に格納している。
     rakuten_rows = df.index[df["category1"] == "投資信託"]
     other_rows = df.index[df["category1"] != "投資信託"]
     
