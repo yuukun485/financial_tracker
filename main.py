@@ -64,10 +64,15 @@ with tab1:
     df = get_finance_data()
 
 #* "df.index[df["category1"] == "投資信託"]"は"category1"列の値が"投資信託"である行を特定し、各行のインデックス番号を"rakuten_rows"に格納している。
-#* ""df.index[df["category1"] != "投資信託"]"は"category1"列の値が"投資信託"以外である行を特定し、各行のインデックス番号を"other_rows"に格納している。
+#* "df.index[df["category1"] != "投資信託"]"は"category1"列の値が"投資信託"以外である行を特定し、各行のインデックス番号を"other_rows"に格納している。
+#* "df.index"でインデックス番号で取得している理由は、"df_styled"内の"subset"でインデックス番号を元に書式設定をするため。
     rakuten_rows = df.index[df["category1"] == "投資信託"]
     other_rows = df.index[df["category1"] != "投資信託"]
-    
+#* "df.style.format"はDataframeの表示スタイルを調整する構文であり、"category1"が"投資信託"の場合と、"投資信託"以外の場合で表示形式を変えている。
+#* "total_price"部分は共通で、"{:,.0f}"で表記。 ","は千の位を区切るカンマを追加。".0"は小数点以下を0桁にするため、整数として表示。"f"は"float"として書式設定。
+#* "unit_price"は"{:.6f}"で表記。".6"は小数点6位までを表示。"f"はfloatとして表記。
+#* "subset=pd.IndexSlice[行の条件, :]"として指定することで、"unit_price"の表示を"投資信託"の種別毎に分類している。
+
     df_styled = df.style.format({"total_price": "{:,.0f}"}).format({"unite_price": "{:.6f}"}, subset=pd.IndexSlice[rakuten_rows,:]).format({"unit_price": "{:,.0f}"},subset=pd.IndexSlice[other_rows,:])
     st.dataframe(df_styled, use_container_width=True, hide_index=True)
 
