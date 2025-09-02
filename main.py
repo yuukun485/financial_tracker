@@ -87,12 +87,13 @@ with tab1:
 #* "st.subheader"はセクションのサブタイトルを表示。
 #* "df_sum_all"には"total_price"の総計が格納される。
 #* "formatted_total"では、"f-string"を使うことで、"df_sum_all"という変数の千のくらいに","・末尾に"円"を付ける形で表示している。
-#* "st.markdown"内で"<div></div>"というHTMLタグを使用して、36pxのフォントサイズ・30pxの空白
+#* "st.markdown"内で"<div></div>"というHTMLタグを使用して、36pxのフォントサイズ・合計値の下に30pxの空白を付けている。
+#* "unsafe_alllow_html=True" はStreamlitにレンダリング時にHTML文字列を使っていることを教えるために必要となる。  
     st.subheader("全項目合計額")
     df_sum_all = df["total_price"].sum()
     formatted_total = f"{df_sum_all:,}円"
     st.markdown(f"<div style='font-size: 36px;'>{formatted_total}</div>",unsafe_allow_html=True)
-    st.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
     #* how to correspond with japanese
     plt.rcParams['font.family'] = 'IPAexGothic'
