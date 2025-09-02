@@ -94,8 +94,8 @@ with tab1:
     formatted_total = f"{df_sum_all:,}円"
     st.markdown(f"<div style='font-size: 36px;'>{formatted_total}</div>",unsafe_allow_html=True)
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
-    
-    #* how to correspond with japanese
+
+#* 【matplotlibのデフォルトフォント設定】
     plt.rcParams['font.family'] = 'IPAexGothic'
     @st.cache_resource
     def register_font():
