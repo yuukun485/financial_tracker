@@ -95,7 +95,13 @@ with tab1:
     st.markdown(f"<div style='font-size: 36px;'>{formatted_total}</div>",unsafe_allow_html=True)
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
 
-#* 【matplotlibのデフォルトフォント設定】
+#* 【matplotlibのグラフを日本語対応化】
+#* "plt.rcParams['font.family']"では下記全てのグラフで使うデフォルトの文字をIPゴシック体に変更しており、セッションの間適応が継続される。
+#* "@st.cache_resource"ではフォントの設定をアプリ側のキャッシュに保存しており、セッションの間適応が継続される。
+#* "register_font()"という関数内でグラフで使用するフォントのパスを指定している。
+#* "font_path"変数では同一フォルダ内にある"ipaexg.ttf"というフォント情報が記載されたTTFファイルを格納している。
+#* "fm.fontManager.addfont(font_path)"では"ipaexg.ttf"で指定されたフォント情報をmatplotlibに一時的に登録し、グラフ描画時に使用している。
+#* "register_font()"で関数を呼び出し、実行している。
     plt.rcParams['font.family'] = 'IPAexGothic'
     @st.cache_resource
     def register_font():
