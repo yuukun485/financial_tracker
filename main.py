@@ -84,9 +84,10 @@ with tab1:
     df_sum2 = df_sum2.sort_values(by="total_price", ascending=False)
 
 #* 【金融資産合計額の表示】
-#* "total"
+#* "st.subheader"はセクションのサブタイトルを表示。
+#* 
     st.subheader("全項目合計額")
-    df_sum_all = df_sum["total_price"]
+    df_sum_all = df["total_price"].sum()
     formatted_total = f"{df_sum_all:,}円"
     st.markdown(f"<div style='font-size: 36px;'>{formatted_total}</div>",unsafe_allow_html=True)
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
