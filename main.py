@@ -62,7 +62,7 @@ tab1, tab2, tab3 = st.tabs(["金融資産一覧表","金融資産登録フォー
 with tab1:
     st.header("📃金融資産一覧表")
     df = get_finance_data()
-
+#* 【グラフ用データの前準備】
 #* "df.index[df["category1"] == "投資信託"]"は"category1"列の値が"投資信託"である行を特定し、各行のインデックス番号を"rakuten_rows"に格納している。
 #* "df.index[df["category1"] != "投資信託"]"は"category1"列の値が"投資信託"以外である行を特定し、各行のインデックス番号を"other_rows"に格納している。
 #* "df.index"でインデックス番号で取得している理由は、"df_styled"内の"subset"でインデックス番号を元に書式設定をするため。
@@ -83,8 +83,10 @@ with tab1:
     df_sum = df_sum.sort_values(by="total_price", ascending=False)
     df_sum2 = df_sum2.sort_values(by="total_price", ascending=False)
 
+#* 【金融資産合計額の表示】
+#* "total"
     st.subheader("全項目合計額")
-    df_sum_all = df["total_price"].sum()
+    df_sum_all = df_sum["total_price"].sum()
     formatted_total = f"{df_sum_all:,}円"
     st.markdown(f"<div style='font-size: 36px;'>{formatted_total}</div>",unsafe_allow_html=True)
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
