@@ -109,7 +109,9 @@ with tab1:
         fm.fontManager.addfont(font_path)
     register_font()
 
-    #* Variables for pie chart
+#*【グラフ描画用のデータ準備】
+#* "category2"の各項目の合計額を"value"変数に代入する
+#* "category2"の合計額で使われている項目名を"label"変数に代入する
     value = df_sum["total_price"]
     label = df_sum.index
 
