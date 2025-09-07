@@ -114,7 +114,8 @@ with tab1:
 #* "category2"の合計額で使われている項目名を"label"変数に代入する
     value = df_sum["total_price"]
     label = df_sum.index
-
+#* "category1"の各項目の合計額を"value"変数に代入する
+#* "category1"の合計額で使われている項目名を"label"変数に代入する
     value2 = df_sum2["total_price"]
     label2 = df_sum2.index
 
