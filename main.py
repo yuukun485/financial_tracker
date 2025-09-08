@@ -115,12 +115,15 @@ with tab1:
 #* ".index"で各扇の名称が抜けるのは、"df.groupby("category2").sum()"を行った時点で各項目別合計額に対してのインデックス番号が振られているからである。
     value = df_sum["total_price"]
     label = df_sum.index
-#* "category1"の各項目の合計額を"value"変数に代入する
-#* "category1"の合計額で使われているインデックス番号を"label"に代入する
+#* "category1"の各項目の合計額を"value2"変数に代入する
+#* "category1"の合計額で使われているインデックス番号を"label2"に代入する
 #* ".index"で各扇の名称が抜けるのは、"df.groupby("category1").sum()"を行った時点で各項目別合計額に対してのインデックス番号が振られているからである。
     value2 = df_sum2["total_price"]
     label2 = df_sum2.index
 
+#* 【円グラフの描画】
+#* "fig, ax = plt.subplots()"は定型分で"fig"が額縁として機能し、グラフそのものではなく、グラフが描かれるエリア全体となり、"ax"がキャンバスとなり、キャンバスに円グラフを描いていくことになる。
+#* "def func(pct, allavals)"ではグラフの各項目毎にパーセント表示に加え、実数値での表示を行えるように定義している。
     fig, ax = plt.subplots()
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
