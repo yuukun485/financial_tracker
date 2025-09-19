@@ -129,6 +129,11 @@ with tab1:
 #* "absolute"変数には"sum(allvals)"で計算されたカテゴリ2の全項目合計額と"pct/100(80.6→0.86)"で計算された各扇の比率を掛け合わせた値を四捨五入した結果を整数として格納している。
 #* "absolute"変数に格納されている値は扇の数分繰り返し変更して返される。
 #* "{pct: .1f}"では小数点以下1桁までの値をパーセントで表示。(80.6%) "\n"は改行 "({absolute:,d}"円)"では千くらいで","区切りをしている。"d"はデータ型が10進数の整数(decimial integer)であることを規定している。
+#* "ax.pie"の"value"にはCategory2の各項目別合計額が渡される。
+#* "autopct=lambda pct: func(pct, value)"では"lamnbda pct(変数)"でパーセントの値を受け取り、その値をfunc関数に渡している。
+#* func(pct, value)"では"pct"にパーセントの値、"value"にCategory2の各項目別合計額が渡される。
+#* "shadow=False"はグラフに影を付けない設定。"startangle=90"は時計の12時の方向からグラフを開始する設定。"textprops={'fontsize': 6}"ではフォントサイズを6に設定。
+#*　"autopct"はグラフ内の扇のパーセントの表示形式を指定するものであり、本来は"%.1%%"のように指定するが、今回はパーセントの下に数字も表示したいので、func関数を使っている。
     fig, ax = plt.subplots()
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
