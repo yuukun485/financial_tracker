@@ -134,6 +134,11 @@ with tab1:
 #* func(pct, value)"では"pct"にパーセントの値、"value"にCategory2の各項目別合計額が渡される。
 #* "shadow=False"はグラフに影を付けない設定。"startangle=90"は時計の12時の方向からグラフを開始する設定。"textprops={'fontsize': 6}"ではフォントサイズを6に設定。
 #*　"autopct"はグラフ内の扇のパーセントの表示形式を指定するものであり、本来は"%.1%%"のように指定するが、今回はパーセントの下に数字も表示したいので、func関数を使っている。
+#* "ax.axis("equal")"では円グラフを綺麗な真円に設定。この設定がないとウィンドウサイズによって楕円になる可能性あり。
+#* "ax.legend"では"label"にCategory2の各項目名称が代入され、"loc=center right"で凡例の表示位置を右側中央に指定し、"bbox_to_anchor=(1,0,0.5,1)"では左下からはじまり(x,y,width,height)を定義している。
+#* "bbox_to_anchor=(1,0,0.5,1)"では(x=1[右下], y=0[下], width=0.5[グラフエリアの範囲を0.5倍拡大], height=1[拡大した範囲をグラフエリアと同列の高さに設定])
+#* "st.pyplot(fig)"の"fig"には"axで加えた全ての変更が記載されている"
+
     fig, ax = plt.subplots()
     def func(pct, allvals):
         absolute = int(round(pct/100.*sum(allvals)))
