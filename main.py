@@ -154,9 +154,6 @@ with tab1:
     st.dataframe(df_styled_total)
 
     fig2, ax2 = plt.subplots()
-    def func(pct, allvals):
-        absolute = int(round(pct/100.*sum(allvals)))
-        return f"{pct:.1f}%\n({absolute:,d}円)"
     ax2.pie(value2, autopct=lambda pct: func(pct, value2), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax2.axis("equal")
     ax2.legend(label2, loc="center right", bbox_to_anchor=(1,0,0.5,1))
