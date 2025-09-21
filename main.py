@@ -148,6 +148,7 @@ with tab1:
     ax.legend(label, loc="center right", bbox_to_anchor=(1,0,0.5,1))
     plt.title("用途別円グラフ",{"fontsize": 20})
     st.pyplot(fig)
+
     
     st.subheader("用途別合計金額一覧表")
     df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
