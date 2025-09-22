@@ -149,11 +149,15 @@ with tab1:
     plt.title("用途別円グラフ",{"fontsize": 20})
     st.pyplot(fig)
 
-    
+#*【Category2の各項目合計額を表示】
+#* "st.subheader()"ではセクションのサブタイトルを表示。
+#* "style.format()"では1000000を1,000,000という 千のくらいで"," 小数点0位での表記に変更している
     st.subheader("用途別合計金額一覧表")
     df_styled_total = df_sum.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
-
+    
+#* 【円グラフの描画2】
+#* "def func(pct, allavals):"関数部分は共通で使われている。
     fig2, ax2 = plt.subplots()
     ax2.pie(value2, autopct=lambda pct: func(pct, value2), shadow=False, startangle=90, textprops={'fontsize': 6})
     ax2.axis("equal")
@@ -161,16 +165,14 @@ with tab1:
     plt.title("資産別円グラフ",{"fontsize": 20})
     st.pyplot(fig2)
 
-    
+#*【Category1の各項目合計額を表示】    
     st.subheader("資産別合計金額一覧表")
-    
     df_styled_total = df_sum2.style.format({"total_price": "{:,.0f}"})
     st.dataframe(df_styled_total)
 
-    
+#*【新規登録フォーム】
 with tab2:
     st.subheader("➕新規登録フォーム")
-    #* allow users to input values in text boxes, submit them and register them into finance.db
     with st.form("registration form", clear_on_submit=True):
         default_date = datetime.date(2025,8,1)
         date = st.date_input(label="日付", value=default_date)
@@ -184,6 +186,7 @@ with tab2:
 
         submitted = st.form_submit_button("登録する")
 
+#*【登録ボタンを押した際の処理】
         if submitted:
             if date and title and account_name and category1 and category2 and total_price:
                 conn = get_connection()
@@ -195,22 +198,21 @@ with tab2:
                 conn.commit()
                 conn.close()
                 st.success("登録完了")
-                get_finance_data.clear() # キャッシュをクリア (変更点4)
+                get_finance_data.clear() 
                 st.session_state.data_updated = True
-                st.rerun() # アプリを再実行 (変更点5)
+                st.rerun()
             else:
                 st.warning("必須項目が未入力です")
+
+#* 【データを削除】
 with tab3:
     st.subheader("➖削除フォーム")
-    # データ取得関数を呼び出すように変更 (変更点3)
     df = get_finance_data()
     rakuten_rows = df.index[df["category1"] == "投資信託"]
     other_rows = df.index[df["category1"] != "投資信託"]
     df_styled = df.style.format({"total_price": "{:,.0f}"}).format({"unite_price": "{:.6f}"}, subset=pd.IndexSlice[rakuten_rows,:]).format({"unit_price": "{:,.0f}"},subset=pd.IndexSlice[other_rows,:])
     st.dataframe(df_styled, use_container_width=True, hide_index=True)
 
-
-    #* type an id number to delete from finance table
     id_number_to_delete = st.number_input("削除するid番号を入力", min_value = 0)
 
     #* if a button is clicked, an id number typed in the textbox is deleted
@@ -221,6 +223,6 @@ with tab3:
         conn.commit()
         conn.close()
         st.success(f"id番号{id_number_to_delete}を削除しました。")
-        get_finance_data.clear() # キャッシュをクリア (変更点4)
+        get_finance_data.clear()
         st.session_state.data_update = True
-        st.rerun() # アプリを再実行 (変更点5)
+        st.rerun() 
